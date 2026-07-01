@@ -56,6 +56,28 @@ ffmpeg -y -ss 2 -i public/pictures/hero-video.mp4 -frames:v 1 -q:v 3 \
   public/pictures/hero-poster.jpg
 ```
 
+## Despliegue en GitHub Pages
+
+El repo incluye un workflow (`.github/workflows/deploy.yml`) que compila y publica
+automáticamente en cada push a `main`.
+
+Para activarlo una sola vez: en GitHub ve a **Settings → Pages → Build and deployment**
+y en **Source** elige **GitHub Actions**. El sitio quedará en
+`https://httpsteven.github.io/salon-mirador/`.
+
+Como es un *project site* (se sirve desde `/salon-mirador/`), el workflow compila con
+`VITE_BASE=/salon-mirador/` para que todas las rutas de assets sean correctas.
+
+- **¿Dominio propio o *user site*** (servido en la raíz `/`)**?** Cambia `VITE_BASE` a `/`
+  en el workflow (o quita esa variable) y agrega tu dominio en **Settings → Pages → Custom domain**.
+
+> Nota: el video del hero pesa ~5 MB. GitHub Pages tiene un límite suave de 100 GB de ancho
+> de banda al mes; suficiente para un sitio de este tipo, pero si el tráfico crece conviene
+> mover el video a un CDN.
+
+Otras opciones de hosting estático (Vercel, Netlify, Cloudflare Pages) funcionan sin
+configuración de `base` porque sirven desde la raíz — solo build `npm run build`, output `dist`.
+
 ## Pendientes antes de publicar
 
 - Confirmar teléfono/WhatsApp (`625 102 48 75`) e Instagram (`@salon_mirador`).

@@ -66,8 +66,11 @@
   const show = (i) => {
     current = (i + items.length) % items.length;
     const btn = items[current];
-    lbImg.src = btn.dataset.src;
-    lbImg.alt = btn.querySelector("img").alt;
+    const img = btn.querySelector("img");
+    // Use the thumbnail's already-resolved src so the path stays correct
+    // regardless of deploy base (root domain vs. GitHub Pages subpath).
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt;
     lbCaption.textContent = btn.dataset.caption || "";
   };
   const openLb = (i) => {
